@@ -3,4 +3,5 @@ import UserResolver from "./resolvers/user.resolver";
 
 export default buildSchemaSync({
   resolvers: [UserResolver],
+  validate: true,
 });
