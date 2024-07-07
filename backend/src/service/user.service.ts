@@ -19,7 +19,6 @@ export default class UserService {
 
   static getAllUsers = async () => {
     const getUsers = await User.find();
-    console.log(getUsers);
 
     return getUsers;
   };
