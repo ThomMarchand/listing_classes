@@ -6,7 +6,7 @@ import { buildSchema } from "type-graphql";
 import db from "./db";
 import UserResolver from "../resolvers/user.resolver";
 
-const port = 4000;
+const port = 5000;
 
 buildSchema({
   resolvers: [UserResolver],
