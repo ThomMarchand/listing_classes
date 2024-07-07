@@ -1,6 +1,6 @@
 import { buildSchemaSync } from "type-graphql";
-import User from "../entities/User";
+import UserResolver from "./resolvers/user.resolver";
 
 export default buildSchemaSync({
-  resolvers: [User],
+  resolvers: [UserResolver],
 });

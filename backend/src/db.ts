@@ -1,22 +1,26 @@
 import { DataSource } from "typeorm";
-import User from "../entities/User";
+
+import env from "./env";
+import User from "./entities/User";
 
 const db = new DataSource({
-  type: "sqlite",
-  database: "test.sqlite",
+  type: "postgres",
+  password: env.DB_PASS,
+  username: env.DB_USER,
+  database: env.DB_NAME,
+  host: env.DB_HOST,
+  port: env.DB_PORT,
   entities: [User],
   synchronize: true,
-  logging: true,
+  logging: env.NODE_ENV !== "test",
 });
 
-export const initializeDB = async (): Promise<void> => {
-  try {
-    await db.initialize();
-
-    console.log("Database successfully initialized");
-  } catch (e: any) {
-    console.log(`Database failed to connect ${e.message}`);
-  }
-};
+export async function clearDb() {
+  const entities = db.entityMetadatas;
+  const tableNames = entities
+    .map((entity) => `"${entity.tableName}"`)
+    .join(", ");
+  await db.query(`TRUNCATE ${tableNames} RESTART IDENTITY CASCADE;`);
+}
 
 export default db;
