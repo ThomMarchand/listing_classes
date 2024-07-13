@@ -8,6 +8,6 @@ Start the ticket title with a gitmoji corresponding to the branch (feature = :sp
 
 Naming branch:
 
-- feature/$nom-de-la-branch
-- hotfix/$nom-de-la-branch
-- bug/$nom-de-la-branch
+- backend/feature/$nom-de-la-branch
+- frontend/hotfix/$nom-de-la-branch
+- backend/bug/$nom-de-la-branch
