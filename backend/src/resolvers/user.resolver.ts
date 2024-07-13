@@ -19,6 +19,12 @@ export default class UserResolver {
 
   @Mutation(() => User)
   async createUser(@Arg("data", { validate: true }) data: CreateUserInput) {
+    const userAlreadyExist = await UserService.findUser({ email: data.email });
+
+    if (userAlreadyExist) {
+      throw new GraphQLError(`${data.email} already exist`);
+    }
+
     const newUser = await UserService.createUser(data);
 
     return newUser;
@@ -27,12 +33,17 @@ export default class UserResolver {
   @Mutation(() => String)
   async signin(@Arg("data") data: SigninInput, @Ctx() ctx: Context) {
     const userAlreadyExist = await UserService.findUser({ email: data.email });
+
+    if (!userAlreadyExist) {
+      throw new GraphQLError("bad credential");
+    }
+
     const IsUserPassword = await verify(
       userAlreadyExist.hashedPassword,
       data.password
     );
 
-    if (!userAlreadyExist || !IsUserPassword) {
+    if (!IsUserPassword) {
       throw new GraphQLError("bad credential");
     }
 
