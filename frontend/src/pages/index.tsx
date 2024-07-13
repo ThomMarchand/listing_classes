@@ -8,6 +8,7 @@ export default function Home() {
 
   return (
     <main className={`${inter.className}`}>
+      <h1>Dashboard</h1>
       {data?.getAllUsers.map((user) => (
         <div key={user.email}>
           <p>{user.email}</p>
