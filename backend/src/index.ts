@@ -44,9 +44,6 @@ const main = async () => {
   );
 
   console.log(`🚀 Hey, server ready at http://localhost:${port}`);
-  console.log(
-    "!!! penser à supprimer le status à la création d'un user ds l'entity !!"
-  );
 };
 
 main();
