@@ -22,4 +22,10 @@ export default class UserService {
 
     return getUsers;
   };
+
+  static findUser = async (userSearch: {}) => {
+    const user = await User.findOneByOrFail(userSearch);
+
+    return user;
+  };
 }

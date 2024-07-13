@@ -21,7 +21,6 @@ const main = async () => {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
-  // console.log(server);
   await db.initialize().catch((e) => console.log("db.initialize()", e));
 
   await server.start().catch((e) => console.log("server.start()", e));
@@ -45,6 +44,9 @@ const main = async () => {
   );
 
   console.log(`🚀 Hey, server ready at http://localhost:${port}`);
+  console.log(
+    "!!! penser à supprimer le status à la création d'un user ds l'entity !!"
+  );
 };
 
 main();
