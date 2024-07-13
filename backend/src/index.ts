@@ -21,7 +21,6 @@ const main = async () => {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
-  // console.log(server);
   await db.initialize().catch((e) => console.log("db.initialize()", e));
 
   await server.start().catch((e) => console.log("server.start()", e));

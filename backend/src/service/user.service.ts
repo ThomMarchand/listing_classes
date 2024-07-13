@@ -4,12 +4,6 @@ import User, { CreateUserInput } from "../entities/User";
 
 export default class UserService {
   static createUser = async (data: CreateUserInput) => {
-    const userAlreadyExist = await User.find({ where: { email: data.email } });
-
-    if (userAlreadyExist.length > 0) {
-      throw new GraphQLError(`${data.email} already exist`);
-    }
-
     const newUser = new User();
 
     Object.assign(newUser, data);
@@ -21,5 +15,11 @@ export default class UserService {
     const getUsers = await User.find();
 
     return getUsers;
+  };
+
+  static findUser = async (userSearch: {}) => {
+    const user = await User.findOneBy(userSearch);
+
+    return user;
   };
 }

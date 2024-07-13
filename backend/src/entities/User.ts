@@ -7,10 +7,18 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  Unique,
 } from "typeorm";
 
-@Entity()
+const USER_ROLE = {
+  ADMIN: "admin",
+  TEACHER: "teacher",
+  STUDENT: "student",
+} as const;
+
 @ObjectType()
+@Entity()
+@Unique(["email"])
 export default class User extends BaseEntity {
   password: string;
 
@@ -32,11 +40,15 @@ export default class User extends BaseEntity {
 
   @Field()
   @Column({ default: "Veuillez renseigner un prénom" })
-  first_name: string;
+  firstName: string;
 
   @Field()
   @Column({ default: "Veuillez renseigner un nom" })
-  last_name: string;
+  lastName: string;
+
+  @Field()
+  @Column({ default: USER_ROLE.STUDENT })
+  status: string;
 }
 
 @InputType()
@@ -51,11 +63,25 @@ export class CreateUserInput {
 
   @Field({ nullable: true })
   @Length(2, 30, { message: "Le prénom doit faire entre 2 et 30 caractères" })
-  first_name: string;
+  firstName: string;
 
   @Field({ nullable: true })
   @Length(2, 30, { message: "Le nom doit faire entre 2 et 30 caractères" })
-  last_name: string;
+  lastName: string;
+
+  @Field({ nullable: true })
+  status: string;
+}
+
+@InputType()
+export class SigninInput {
+  @Field()
+  @IsEmail()
+  email: string;
+
+  @Field()
+  @IsStrongPassword()
+  password: string;
 }
 
 @InputType()
