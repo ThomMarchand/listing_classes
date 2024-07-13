@@ -7,10 +7,18 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  Unique,
 } from "typeorm";
 
-@Entity()
+const USER_ROLE = {
+  ADMIN: "admin",
+  TEACHER: "teacher",
+  STUDENT: "student",
+} as const;
+
 @ObjectType()
+@Entity()
+@Unique(["email"])
 export default class User extends BaseEntity {
   password: string;
 
@@ -32,11 +40,11 @@ export default class User extends BaseEntity {
 
   @Field()
   @Column({ default: "Veuillez renseigner un prénom" })
-  first_name: string;
+  firstName: string;
 
   @Field()
   @Column({ default: "Veuillez renseigner un nom" })
-  last_name: string;
+  lastName: string;
 }
 
 @InputType()
